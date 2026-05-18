@@ -7,9 +7,310 @@ draft: false
 ---
 # 天梯赛普及赛编程题题解
 
+# 天梯赛普及赛编程题题解
+
+
+
 ## 1
 
-```c++
+
+
+``` c++
+#include <bits/stdc++.h>
+using namespace std;
+using i64 = long long;
+
+void solve ()
+{
+    cout << "If people never did silly things, nothing intelligent would ever get done.";
+}
+
+int main ()
+{
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+    int _ = 1;
+    // cin >> _;
+    while (_--) {
+        solve();
+    }
+    return 0;
+}
+```
+
+
+
+## 2
+
+
+
+```C++
+#include <bits/stdc++.h>
+using namespace std;
+using i64 = long long;
+
+void solve ()
+{
+    int x, n, y;
+    cin >> x >> n >> y;
+    cout << x * n + y << '\n';
+}
+
+int main ()
+{
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+    int _ = 1;
+    // cin >> _;
+    while (_--) {
+        solve();
+    }
+    return 0;
+}
+```
+
+
+
+## 3
+
+```C++
+#include <bits/stdc++.h>
+using namespace std;
+using i64 = long long;
+
+void solve ()
+{
+    int a, b, c;
+    cin >> a >> b >> c;
+    cout << a << '\n';
+    if (a < b) {
+        cout << "Bu Kan";
+    }else if (a >= b && a < c) {
+        cout << "Zhe Gua Bao Shu Ma";
+    }else {
+        cout << "Chi Gua";
+    }
+}
+
+int main ()
+{
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+    int _ = 1;
+    // cin >> _;
+    while (_--) {
+        solve();
+    }
+    return 0;
+}
+```
+
+
+
+## 4
+
+```C++
+#include <bits/stdc++.h>
+using namespace std;
+using i64 = long long;
+
+void solve ()
+{
+    int n;
+    cin >> n;
+    int ans = 0;
+    for (int i = 1; i <= n; i++) {
+        int t;
+        cin >> t;
+        if (!(i & 1)) {
+            ans += t;
+        }
+    }
+    cout << ans;
+}
+
+int main ()
+{
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+    int _ = 1;
+    // cin >> _;
+    while (_--) {
+        solve();
+    }
+    return 0;
+}
+```
+
+
+
+## 5
+
+```C++
+#include <bits/stdc++.h>
+using namespace std;
+using i64 = long long;
+
+void solve ()
+{
+    int a, b;
+    cin >> a >> b;
+    int res = a + b;
+    int t;
+    int ans = 1;
+    while (cin >> t) {
+        if (t == res) {
+            cout << res << ' ' << "Accepted ";
+            int l = ans % 60;
+            int minute = ((ans - l) / 60) % 60;
+            int hour = (ans - l - minute * 60) / 3600;
+            if (hour <= 9) cout << "0" << hour;
+            else cout << hour;
+            cout << ":";
+            if (minute <= 9) cout << "0" << minute;
+            else cout << minute;
+            cout << ":";
+            if (l <= 9) cout << "0" << l;
+            else cout << l;
+            return;
+        }
+        ans += 2;
+        if (ans >= 10800) {
+            ans = 10799;
+            break;
+        }
+    }
+
+    cout << t << ' ' << "Wrong Answer " << "02:59:59";
+}
+
+int main ()
+{
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+    int _ = 1;
+    // cin >> _;
+    while (_--) {
+        solve();
+    }
+    return 0;
+}
+```
+
+
+
+## 6
+
+``` C++
+#include <bits/stdc++.h>
+using namespace std;
+using i64 = long long;
+
+void solve ()
+{
+    int n;
+    cin >> n;
+    for (int i = 1; i <= n; i++) {
+        int t;
+        int ans = 0;
+        bool ok = false;
+        map <int, int> mp;
+        while (cin >> t) {
+            if (t == -1) break;
+            if (!ok && mp[t]) {
+                ans = t;
+                ok = true;
+            }
+            mp[t] = true;
+        }
+        if (ok) {
+            cout << ans << '\n';
+        }else {
+            cout << "NONE\n";
+        }
+    }
+}
+
+int main ()
+{
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+    int _ = 1;
+    // cin >> _;
+    while (_--) {
+        solve();
+    }
+    return 0;
+}
+```
+
+
+
+## 7
+
+```C++
+#include <bits/stdc++.h>
+using namespace std;
+using i64 = long long;
+
+void solve ()
+{
+    int n;
+    cin >> n;
+
+    auto cal1 = [&] (i64 x) -> bool {
+        i64 res = 0;
+        while (res * res * 2 <= x) {
+            if (res * res * 2 == x) return true;
+            res++;
+        }
+        if (res * res * 2 == x) return true;
+        else return false;
+    };
+
+    auto cal2 = [&] (i64 x) -> bool {
+        i64 res = 0;
+        while (res * res * res * 3 <= x) {
+            if (res * res * res * 3 == x) return true;
+            res++;
+        }
+        if (res * res * res * 3 == x) return true;
+        else return false;
+    };
+ 
+    for (int i = 1; i <= n; i++) {
+        i64 t;
+        cin >> t;
+        bool ok1 = cal1(t);
+        bool ok2 = cal2(t);
+        if (ok1 && ok2) {
+            cout << t << ' ' << "is a triple flower" << '\n';
+        }else if (ok1 && !ok2) {
+            cout << t << ' ' << "is a double flower" << '\n';
+        }else {
+            cout << t << ' ' << "is" << ' ' << t << '\n';
+        }
+    }
+}
+
+int main ()
+{
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+    int _ = 1;
+    // cin >> _;
+    while (_--) {
+        solve();
+    }
+    return 0;
+}
+```
+
+
+
+## 8
+
+```C++
 #include <bits/stdc++.h>
 using namespace std;
 using i64 = long long;
@@ -85,3 +386,80 @@ int main ()
     return 0;
 }
 ```
+
+
+
+## 9
+
+```C++
+#include <bits/stdc++.h>
+using namespace std;
+using i64 = long long;
+
+void solve ()
+{
+    int n, m;
+    cin >> n >> m;
+    vector <vector <int> > e(m + 5);
+    vector <vector <int> > v(n + 5);
+    v.reserve(201 * 1001);
+    for (int i = 1; i <= n; i++) {
+        int t;
+        cin >> t;
+        v[i].reserve(1001);
+        for (int j = 1; j <= t; j++) {
+            int b;
+            cin >> b;
+            v[i].push_back(b);
+            e[b].push_back(i);
+        }
+        sort(v[i].begin(), v[i].end());
+        v[i].erase(unique(v[i].begin(), v[i].end()), v[i].end());
+    }
+
+    vector <vector <int> > a(n + 5);
+    int cnt = 1;
+    vector <int> vis(m + 5);
+    vector <int> viss(n + 5);
+
+    auto dfs = [&] (auto self, int u) -> void {
+        for (auto x : e[u]) {
+            if (viss[x]) continue;
+            viss[x] = true;
+            for (auto y : v[x]) {
+                if (vis[y]) continue;
+                vis[y] = true;
+                a[cnt].push_back(y);
+                self(self, y);
+            }
+        }
+    };
+
+    for (int i = 1; i <= m; i++) {
+        if (vis[i]) continue;
+        vis[i] = true;
+        a[cnt].push_back(i);
+        dfs(dfs, i);
+        cnt++;
+    }
+
+    for (int i = 1; i < cnt; i++) {
+        sort(a[i].begin(), a[i].end());
+        if (i == cnt - 1) cout << a[i][0];
+        else cout << a[i][0] << ' ';
+    }
+}
+
+int main ()
+{
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+    int _ = 1;
+    // cin >> _;
+    while (_--) {
+        solve();
+    }
+    return 0;
+}
+```
+
