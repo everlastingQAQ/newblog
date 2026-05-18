@@ -23,7 +23,7 @@
 		button.setAttribute("aria-expanded", (!collapsed).toString());
 		button.setAttribute("aria-label", label);
 		button.setAttribute("title", label);
-		pre.hidden = false;
+		pre.hidden = collapsed;
 		if (copy) copy.hidden = collapsed;
 	}
 
