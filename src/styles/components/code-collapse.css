@@ -1,0 +1,84 @@
+.expressive-code .frame[data-code-collapse-ready="true"] .header {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+.expressive-code .frame[data-code-collapsed="true"] > pre,
+.expressive-code .frame[data-code-collapsed="true"] > .copy {
+	display: none;
+}
+
+.expressive-code .code-collapse-toggle {
+	all: unset;
+	box-sizing: border-box;
+	display: inline-flex;
+	flex: none;
+	align-items: center;
+	justify-content: center;
+	margin-inline-start: auto;
+	min-height: 1.75rem;
+	padding: 0.25rem 0.625rem;
+	border: var(--ec-brdWd) solid currentColor;
+	border-radius: 999px;
+	color: var(--ec-codeFg);
+	font: inherit;
+	font-size: 0.75rem;
+	font-weight: 600;
+	line-height: 1;
+	cursor: pointer;
+	opacity: 0.78;
+	transition:
+		opacity 0.2s ease,
+		background-color 0.2s ease,
+		color 0.2s ease;
+}
+
+.expressive-code .frame[data-code-collapse-ready="true"]:not(.has-title):not(.is-terminal) {
+	--button-spacing: calc(1.9rem + var(--ec-brdWd) + 2 * var(--ec-uiPadBlk));
+}
+
+.expressive-code .frame[data-code-collapse-ready="true"]:not(.has-title):not(.is-terminal) .header {
+	justify-content: flex-end;
+	min-height: calc(1.9rem + var(--ec-brdWd) + 2 * var(--ec-uiPadBlk));
+	padding: var(--ec-uiPadBlk) calc(var(--ec-uiPadInl) / 2);
+	border: var(--ec-brdWd) solid var(--ec-brdCol);
+	border-bottom: none;
+	background: var(--ec-frm-edTabBarBg);
+}
+
+.expressive-code .frame[data-code-collapse-ready="true"]:not(.has-title):not(.is-terminal) pre {
+	border-top: none;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+}
+
+.expressive-code .frame[data-code-collapse-ready="true"].has-title:not(.is-terminal) .header {
+	align-items: center;
+	padding-inline-end: calc(var(--ec-uiPadInl) / 2);
+}
+
+.expressive-code .frame[data-code-collapse-ready="true"].is-terminal .code-collapse-toggle {
+	position: absolute;
+	z-index: 2;
+	inset-inline-end: calc(var(--ec-uiPadInl) / 2);
+	inset-block-start: 50%;
+	transform: translateY(-50%);
+}
+
+.expressive-code .frame[data-code-collapsed="true"]:not(.has-title):not(.is-terminal) .header {
+	border-bottom: var(--ec-brdWd) solid var(--ec-brdCol);
+	border-radius: var(--header-border-radius);
+}
+
+.expressive-code .code-collapse-toggle:hover,
+.expressive-code .code-collapse-toggle:focus-visible {
+	background: var(--ec-codeFg);
+	color: var(--ec-codeBg);
+	opacity: 1;
+}
+
+.expressive-code .code-collapse-toggle:focus-visible {
+	outline: 2px solid var(--ec-focusBrd);
+	outline-offset: 2px;
+}

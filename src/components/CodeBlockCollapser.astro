@@ -1,0 +1,103 @@
+<script>
+	const COLLAPSE_LINE_THRESHOLD = 20;
+	const READY_ATTR = "data-code-collapse-ready";
+	const COLLAPSED_ATTR = "data-code-collapsed";
+	const COLLAPSE_BUTTON_CLASS = "code-collapse-toggle";
+
+	let codeBlockId = 0;
+
+	function getToggleText(lineCount: number, collapsed: boolean) {
+		return collapsed ? `展开代码（${lineCount} 行）` : "收起代码";
+	}
+
+	function setCollapsed(
+		figure: HTMLElement,
+		button: HTMLButtonElement,
+		pre: HTMLPreElement,
+		copy: HTMLElement | null,
+		lineCount: number,
+		collapsed: boolean,
+	) {
+		figure.setAttribute(COLLAPSED_ATTR, collapsed.toString());
+		button.setAttribute("aria-expanded", (!collapsed).toString());
+		button.textContent = getToggleText(lineCount, collapsed);
+		pre.hidden = collapsed;
+		if (copy) copy.hidden = collapsed;
+	}
+
+	function ensureHeader(figure: HTMLElement, pre: HTMLPreElement) {
+		const existingHeader = figure.querySelector<HTMLElement>(":scope > figcaption.header");
+		if (existingHeader) return existingHeader;
+
+		const header = document.createElement("figcaption");
+		header.className = "header";
+		figure.insertBefore(header, pre);
+		return header;
+	}
+
+	function getFigures(root: ParentNode) {
+		const figures: HTMLElement[] = [];
+
+		if (root instanceof Element && root.matches(".expressive-code > figure.frame")) {
+			figures.push(root as HTMLElement);
+		}
+
+		root.querySelectorAll?.<HTMLElement>(".expressive-code > figure.frame").forEach((figure) => {
+			figures.push(figure);
+		});
+
+		return figures;
+	}
+
+	function initCodeBlock(figure: HTMLElement) {
+		if (figure.hasAttribute(READY_ATTR)) return;
+
+		const pre = figure.querySelector<HTMLPreElement>(":scope > pre");
+		if (!pre) {
+			figure.setAttribute(READY_ATTR, "false");
+			return;
+		}
+
+		const lineCount = figure.querySelectorAll(":scope .ec-line").length;
+		if (lineCount <= COLLAPSE_LINE_THRESHOLD) {
+			figure.setAttribute(READY_ATTR, "false");
+			return;
+		}
+
+		const header = ensureHeader(figure, pre);
+		const copy = figure.querySelector<HTMLElement>(":scope > .copy");
+		const button = document.createElement("button");
+		const codeBlockControlsId = pre.id || `code-block-${++codeBlockId}`;
+
+		pre.id = codeBlockControlsId;
+		button.className = COLLAPSE_BUTTON_CLASS;
+		button.type = "button";
+		button.setAttribute("aria-controls", codeBlockControlsId);
+		header.append(button);
+
+		figure.setAttribute(READY_ATTR, "true");
+		setCollapsed(figure, button, pre, copy, lineCount, true);
+
+		button.addEventListener("click", () => {
+			const isCollapsed = figure.getAttribute(COLLAPSED_ATTR) === "true";
+			setCollapsed(figure, button, pre, copy, lineCount, !isCollapsed);
+		});
+	}
+
+	function initCodeBlockCollapsers(root: ParentNode = document) {
+		getFigures(root).forEach(initCodeBlock);
+	}
+
+	initCodeBlockCollapsers();
+
+	const observer = new MutationObserver((entries) => {
+		entries.forEach((entry) => {
+			entry.addedNodes.forEach((node) => {
+				if (node instanceof Element) initCodeBlockCollapsers(node);
+			});
+		});
+	});
+
+	observer.observe(document.body, { childList: true, subtree: true });
+	document.addEventListener("astro:page-load", () => initCodeBlockCollapsers());
+</script>

@@ -112,6 +112,7 @@
 
 @layer components {
 	@import "./components/admonition.css";
+	@import "./components/code-collapse.css";
 	@import "./components/github-card.css";
 
 	.cactus-link {
