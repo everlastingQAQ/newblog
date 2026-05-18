@@ -1,12 +1,26 @@
+.expressive-code .frame[data-code-collapse-ready="true"] {
+	/* 15 highlighted lines plus Expressive Code block padding. */
+	--code-collapse-preview-height: 27.75rem;
+}
+
 .expressive-code .frame[data-code-collapse-ready="true"] .header {
 	display: flex;
 	align-items: center;
 	gap: 0.35rem;
 }
 
-.expressive-code .frame[data-code-collapsed="true"] > pre,
 .expressive-code .frame[data-code-collapsed="true"] > .copy {
 	display: none;
+}
+
+.expressive-code .frame[data-code-collapsed="true"] > pre {
+	max-height: var(--code-collapse-preview-height);
+	overflow-x: auto;
+	overflow-y: hidden;
+}
+
+.expressive-code .frame[data-code-collapsed="false"] > pre {
+	max-height: none;
 }
 
 .expressive-code .code-collapse-toggle {
