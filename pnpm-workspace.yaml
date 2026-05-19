@@ -1,0 +1,11 @@
+packages:
+  - .
+
+onlyBuiltDependencies:
+  - "@biomejs/biome"
+  - "@tailwindcss/oxide"
+  - esbuild
+  - sharp
+
+overrides:
+  sharp: ^0.34.5
