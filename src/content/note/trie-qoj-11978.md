@@ -9,3 +9,5 @@ publishDate: "2026-05-21T10:15:00+08:00"
 - 题型：字典树
 - 链接：https://qoj.ac/contest/2116/problem/11978
 
+暴力c过去了 待补
+
