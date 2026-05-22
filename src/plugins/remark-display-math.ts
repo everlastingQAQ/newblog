@@ -13,7 +13,10 @@ type InlineMathNode = PositionedNode & {
 	value: string;
 };
 
-function getDoubleDollarInlineMath(node: PhrasingContent, source: string): InlineMathNode | undefined {
+function getDoubleDollarInlineMath(
+	node: PhrasingContent,
+	source: string,
+): InlineMathNode | undefined {
 	const candidate = node as Partial<InlineMathNode> & { type?: string; value?: unknown };
 	if (candidate.type !== "inlineMath" || typeof candidate.value !== "string") return undefined;
 
@@ -30,7 +33,10 @@ function getDoubleDollarInlineMath(node: PhrasingContent, source: string): Inlin
 function hasMeaningfulContent(children: PhrasingContent[]) {
 	return children.some((child) => {
 		const maybeText = child as PhrasingContent & { value?: unknown };
-		return child.type !== "text" || (typeof maybeText.value === "string" && maybeText.value.trim().length > 0);
+		return (
+			child.type !== "text" ||
+			(typeof maybeText.value === "string" && maybeText.value.trim().length > 0)
+		);
 	});
 }
 
@@ -96,6 +102,7 @@ function splitParagraphMath(node: Paragraph, source: string): RootContent[] | un
 function transformChildren(parent: Parent, source: string) {
 	for (let index = 0; index < parent.children.length; index++) {
 		const child = parent.children[index];
+		if (!child) continue;
 
 		if (child.type === "paragraph") {
 			const replacement = splitParagraphMath(child, source);
