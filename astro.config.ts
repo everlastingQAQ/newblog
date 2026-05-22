@@ -17,6 +17,7 @@ import rehypeUnwrapImages from "rehype-unwrap-images";
 import remarkDirective from "remark-directive"; /* Handle ::: directives as nodes */
 import remarkMath from "remark-math";
 import { remarkAdmonitions } from "./src/plugins/remark-admonitions"; /* Add admonitions */
+import { remarkDisplayMath } from "./src/plugins/remark-display-math";
 import { remarkGithubCard } from "./src/plugins/remark-github-card";
 import { remarkReadingTime } from "./src/plugins/remark-reading-time";
 import { expressiveCodeOptions, siteConfig } from "./src/site.config";
@@ -85,6 +86,7 @@ export default defineConfig({
 		remarkPlugins: [
 			remarkReadingTime,
 			remarkMath,
+			remarkDisplayMath,
 			remarkDirective,
 			remarkGithubCard,
 			remarkAdmonitions,

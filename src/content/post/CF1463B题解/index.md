@@ -5,9 +5,11 @@ publishDate: "2026-05-22"
 tags: ["算法", "题解", "Codeforces"]
 draft: false
 ---
-# CF1463B题解
+# CF1463B题解 
 
 ## 题意：
+
+[题目链接](https://codeforces.com/problemset/problem/1463/B)  
 
 给你一个数组 $[a_1, a_2, \dots, a_n]$ ，其中有 $1 \le a_i \le 10^9$ 。设 $S$ 是数组 $a$ 中所有元素的和。
 
@@ -21,7 +23,7 @@ draft: false
 
 ## 思路：
 
-对于构造合法解的题目，我们可以先想什么能够稳定的构造相邻整除的数组。再结合$2 \sum \limits_{i = 1}^{n} |a_i - b_i| \le S$式子，不难推得$$ \frac{1}{2}a_i \leq b_i \leq \frac{3}{2}a_i$$
+对于构造合法解的题目，我们可以先想什么能够稳定的构造相邻整除的数组。再结合$2 \sum \limits_{i = 1}^{n} |a_i - b_i| \le S$，不难推得$$ \frac{1}{2}a_i \leq b_i \leq \frac{3}{2}a_i$$
 注意到存在$ \frac{1}{2}a_i$，可以想到把每一个$b_i$都设置成小于等于$b_i$的最大的$2$的幂。即有：$0 \leq a_i - b_i < \frac{1}{2}a_i$
 求和即有：$$\sum \limits_{i = 1}^{n} |a_i - b_i| \leq \frac{1}{2}S$$
 满足要求
