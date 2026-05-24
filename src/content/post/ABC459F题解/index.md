@@ -31,7 +31,7 @@ draft: false
 
 - 将求严格递增的序列 $B$ 转换为求非递减的序列 $B$ 。
 
-将原序列 $A$ 的每一项转换为 $a_i - i$ 即可。设序列 $B$ 为 $b_i = a_i - i$， 则 $b_i - b_{i - 1} = a_i - a_{i - 1} - (i - (i - 1))$， 即 $b_i - b_{i - 1} = a_i - a_{i - 1} + 1$，这天然满足严格递增的条件，因此求非递减的序列即可。
+将原序列 $A$ 的每一项转换为 $a_i - i$ 即可。设序列 $B$ 为 $b_i = a_i - i$， 则 $b_i - b_{i - 1} = a_i - a_{i - 1} - (i - (i - 1))$， 即 $b_i - b_{i - 1} = a_i - a_{i - 1} - 1$，这天然满足严格递增的条件，因此求非递减的序列即可。
 
 - 将每个数看成一个块，若左边的块的最右端的值大于右边的块的最左端的值，将两个块合并成一个块。在处理每一个块时，需要将块中的值尽可能平均放。
   
@@ -50,8 +50,8 @@ using namespace std;
 
 struct node {
     int len, sum;
-    node operator + (const node &st) const {
-        return node{st.len + len, st.sum + sum};
+    node operator + (const node &other) const {
+        return node{other.len + len, other.sum + sum};
     }
 };
 
